@@ -1,6 +1,4 @@
-﻿
-using DSA.Helpers;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 
 namespace DSA.Sorting;
 public class BruteForceSort : IBruteForceSort
@@ -32,12 +30,7 @@ public class BruteForceSort : IBruteForceSort
                 }
             }
 
-            // Cache the high value
-            int tempHighValue = targetCollection[i];
-            // replace the high values
-            targetCollection[i] = targetCollection[minimumIndex];
-            // replace the low value
-            targetCollection[minimumIndex] = tempHighValue;
+            SwapElementsAtIndecies(targetCollection, i, minimumIndex);
 
         }
 
@@ -45,7 +38,32 @@ public class BruteForceSort : IBruteForceSort
 
     }
 
+    public List<int> BubbleSort(List<int> targetCollection)
+    {
+        _logger.LogInformation("Sorting Target Collection using Bubble Sort");
+
+        for (int i = 0; i < targetCollection.Count-1; i++ )
+        {
+            for (int j = targetCollection.Count-1;j > i; j--)
+            {
+                if (targetCollection[j-1] > targetCollection[j])
+                {
+                    SwapElementsAtIndecies(targetCollection, j - 1, j);
+                }
+            }
+        }
+
+        return targetCollection;
+    }
 
 
+    private static void SwapElementsAtIndecies(List<int> targetCollection, int index1, int index2)
+    {
+        int tempValue = targetCollection[index1];
+        // replace the high values
+        targetCollection[index1] = targetCollection[index2];
+        // replace the low value
+        targetCollection[index2] = tempValue;
+    }
 }
   
